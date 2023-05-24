@@ -11,7 +11,7 @@ const routes: Routes = [
         path: 'list-page',
         component: ListPageComponent,
         data: {
-          title: "List Page",
+          title: "About Us",
           breadcrumb: "List Page"
         }
       },

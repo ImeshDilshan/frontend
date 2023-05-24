@@ -37,11 +37,15 @@ export class DashboardComponent implements OnInit {
 
   handleResponse(response: string) {
     this.incidentsCount++;
+    
     if (response === 'like') {
       this.likesCount++;
+      this.dislikesCount = 0; // Reset dislikes count to 0
     } else if (response === 'dislike') {
       this.dislikesCount++;
+      this.likesCount = 0; // Reset likes count to 0
     }
+    
     this.updateStats();
   }
 }

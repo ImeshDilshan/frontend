@@ -1,31 +1,79 @@
-<!-- Container-fluid starts-->
-<div class="container-fluid">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .profile-card {
+      max-width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      background-color: #f9f9f9;
+      margin-bottom: 20px;
+    }
+
+    .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .profile-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .registration-number {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
     <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Page Details</h5>
-                </div>
-                <div class="card-body">
-                    <div class="custom-datatable">
-                        <button class="btn btn-primary mr-1 mb-3" style="float: right;">Delete</button>
-                        <div class="clearfix"></div>
-                        <ngx-datatable class="bootstrap" [rows]="list_pages" [columnMode]="'force'" [headerHeight]="50"
-                            [footerHeight]="50" [rowHeight]="'auto'" [limit]="5" [selected]="selected"
-                            [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'>
-                            <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false"
-                                [draggable]="false" [resizeable]="false" [headerCheckboxable]="true"
-                                [checkboxable]="true">
-                                <button type="button" class="btn btn-primery">Delete</button>
-                            </ngx-datatable-column>
-                            <ngx-datatable-column name="Name"></ngx-datatable-column>
-                            <ngx-datatable-column name="Status"></ngx-datatable-column>
-                            <ngx-datatable-column prop="created on"></ngx-datatable-column>
-                        </ngx-datatable>
-                    </div>
-                </div>
-            </div>
+      <div class="col-md-6">
+        <div class="profile-card">
+          <img class="profile-picture" src="../../../../assets/images/dashboard/isira.jpeg" alt="Profile Picture">
+          <h2 class="profile-name">G.G.I V.M Gamage</h2>
+          <p class="registration-number">Registration Number:  IT20094690</p>
+          <!-- Add more profile details here -->
         </div>
+      </div>
+      <div class="col-md-6">
+        <div class="profile-card">
+          <img class="profile-picture" src="../../../../assets/images/dashboard/samara.jpeg" alt="Profile Picture">
+          <h2 class="profile-name">B.S. Sithmini</h2>
+          <p class="registration-number">Registration Number: IT20036102</p>
+          <!-- Add more profile details here -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="profile-card">
+          <img class="profile-picture" src="../../../../assets/images/dashboard/harshi.jpeg" alt="Profile Picture">
+          <h2 class="profile-name">N.W. Harshani Jayawardhana</h2>
+          <p class="registration-number">Registration Number: IT20140816 </p>
+          <!-- Add more profile details here -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="profile-card">
+          <img class="profile-picture" src="../../../../assets/images/dashboard/Rajakaruna.jpg" alt="Profile Picture">
+          <h2 class="profile-name">R.H.M.I.D Rajakaruna </h2>
+          <p class="registration-number">Registration Number: IT20246396</p>
+          <!-- Add more profile details here -->
+        </div>
+      </div>
     </div>
-</div>
-<!-- Container-fluid Ends-->
+  </div>
+</body>
+</html>
