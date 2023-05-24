@@ -22,16 +22,8 @@ export class LoginComponent implements OnInit {
 
   owlcarousel = [
     {
-      title: "Welcome to FreshMeat.lk",
-      desc: "Mobile Application Products and Reports",
-    },
-    {
-      title: "Welcome to FreshMeat.lk",
-      desc: "Mobile Application Products and Reports",
-    },
-    {
-      title: "Welcome to FreshMeat.lk",
-      desc: "Mobile Application Products and Reports",
+      title: "Welcome to SDN   Controller Dashboard",
+      desc: "VULNERABILITY SCANNING TOOL FOR SOFTWARE-DEFINE NETWORK CONTROLLER",
     }
   ]
   owlcarouselOptions = {

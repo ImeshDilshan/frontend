@@ -62,15 +62,15 @@ export class NavService {
 		// 	]
 		// },
 		{
-			title: 'Scan', icon: 'dollar-sign', type: 'sub', active: false, children: [
+			title: 'Scan', icon: 'box', type: 'sub', active: false, children: [
 				// { path: '/sales/orders', title: 'Orders', type: 'link' },
 				// { path: '/sales/transactions', title: 'Transactions', type: 'link' },
 			]
 		},
 		{
 			title: 'Assets', icon: 'tag', type: 'sub', active: false, children: [
-				{ path: '/coupons/list-coupons', title: 'List Coupons', type: 'link' },
-				{ path: '/coupons/create-coupons', title: 'Create Coupons', type: 'link' },
+				// { path: '/coupons/list-coupons', title: 'List Coupons', type: 'link' },
+				// { path: '/coupons/create-coupons', title: 'Create Coupons', type: 'link' },
 			]
 		},
 		// {
