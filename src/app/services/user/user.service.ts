@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
   providedIn: "root",
 })
 export class UserService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   // login(){
   //   console.log("helo")
@@ -18,7 +18,7 @@ export class UserService {
   // }
   public static URL = "http://localhost:3000/api/v1/";
 
-  getGraph(id: string){
+  getGraph(id: string) {
     const url = `${ServiceConstant.backendUrl}/graph/${id}`;
 
     return this.httpClient.get(url, { responseType: "text" }).pipe(
@@ -39,5 +39,22 @@ export class UserService {
         throw error;
       })
     );
+  }
+
+
+  getdatas() {
+    const token = localStorage.getItem("accessToken");
+
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: token,
+    });
+
+    const options = {
+      headers: httpHeaders,
+    };
+
+    let url = ServiceConstant.backendUrl+"/";
+    return this.httpClient.get(url, options);
   }
 }

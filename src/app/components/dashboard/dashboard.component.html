@@ -88,6 +88,8 @@
       color: #555;
     }
 
+    
+
     .total-incidents {
       font-size: 20px;
       color: #333;
@@ -123,10 +125,82 @@
     .security-tasks button:hover {
       background-color: #45a049;
     }
+
+
+    .table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+.tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.td {
+    color: #333;
+}
+
   </style>
 </head>
 <body>
+     <div>
+      <label for="graphId">Enter Graph ID:</label>
+      <input type="text" id="graphId" [(ngModel)]="graphId">
+      <button (click)="fetchGraph()">Fetch Graph</button>
+        <div id="svgContainer"></div>
+   
+    </div>
+ <div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Protocol</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Length</th>
+                <!-- Add more table headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let booking of datas">
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.protocol }}</td>
+                <td>{{ booking.source }}</td>
+                <td>{{ booking.destination }}</td>
+                <td>{{ booking.length }}</td>
+                <!-- Add more table data cells as needed -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br><br>
+
+       
   <div class="container">
+    <br><br>
     <h1>Security Assistant Dashboard</h1>
 
     <div class="response-chart">
@@ -171,11 +245,7 @@
     
    
   </div>
-    <div>
-      <label for="graphId">Enter Graph ID:</label>
-      <input type="text" id="graphId" [(ngModel)]="graphId">
-      <button (click)="fetchGraph()">Fetch Graph</button>
-    </div>
-     <div id="svgContainer"></div>
+   
+   
 </body>
 </html>

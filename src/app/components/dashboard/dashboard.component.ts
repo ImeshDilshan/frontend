@@ -12,10 +12,13 @@ export class DashboardComponent implements OnInit {
   incidentsCount: number = 0;
   dislikesCount: number = 0;
   graphId: string;
+  datas: any = [];
 
   constructor(private userservice: UserService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getdata()
+  }
 
   updateStats() {
     const totalResponses = this.likesCount + this.dislikesCount;
@@ -110,4 +113,13 @@ export class DashboardComponent implements OnInit {
     svgContainer.innerHTML = ""; // Clear previous content
     svgContainer.appendChild(svgElement);
   }
+
+  getdata() {
+    this.userservice.getdatas().subscribe((res: any) => {
+      this.datas = res
+      console.log("hi", this.datas);
+    })
+  }
+
+
 }
