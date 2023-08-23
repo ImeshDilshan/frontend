@@ -13,11 +13,13 @@ export class DashboardComponent implements OnInit {
   dislikesCount: number = 0;
   graphId: string;
   datas: any = [];
+  currentPage: number = 1;
+  recordsPerPage: number = 20;
 
   constructor(private userservice: UserService, private router: Router) {}
 
   ngOnInit() {
-    this.getdata()
+    this.getData();
   }
 
   updateStats() {
@@ -86,11 +88,10 @@ export class DashboardComponent implements OnInit {
       },
       (error: any) => {
         // Handle error
-           this.router.navigate([
-             
-                 "http://localhost:5000/api/bookings/graph/",
-             this.graphId,
-           ]);
+        this.router.navigate([
+          "http://localhost:5000/api/bookings/graph/",
+          this.graphId,
+        ]);
         console.error("Error fetching SVG content:", error);
         // You might want to update your component's state to reflect the error
       }
@@ -114,12 +115,29 @@ export class DashboardComponent implements OnInit {
     svgContainer.appendChild(svgElement);
   }
 
-  getdata() {
-    this.userservice.getdatas().subscribe((res: any) => {
-      this.datas = res
-      console.log("hi", this.datas);
-    })
+  nextPage() {
+    if (this.datas.length === this.recordsPerPage) {
+      this.currentPage++;
+      this.getData();
+    }
   }
 
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getData();
+    }
+  }
 
+  getData() {
+    this.userservice.getDatas(this.currentPage, this.recordsPerPage).subscribe(
+      (res: any) => {
+        this.datas = res;
+        console.log("hi", this.datas);
+      },
+      (error: any) => {
+        console.error("Error fetching data:", error);
+      }
+    );
+  }
 }

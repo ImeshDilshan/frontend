@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
   providedIn: "root",
 })
 export class UserService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   // login(){
   //   console.log("helo")
@@ -41,8 +41,7 @@ export class UserService {
     );
   }
 
-
-  getdatas() {
+  getDatas(page: number, perPage: number) {
     const token = localStorage.getItem("accessToken");
 
     const httpHeaders = new HttpHeaders({
@@ -54,7 +53,7 @@ export class UserService {
       headers: httpHeaders,
     };
 
-    let url = ServiceConstant.backendUrl+"/";
+    let url = ServiceConstant.backendUrl + `/?page=${page}&perPage=${perPage}`;
     return this.httpClient.get(url, options);
   }
 }
