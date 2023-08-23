@@ -219,41 +219,6 @@
     <span>{{ currentPage }}</span>
     <button (click)="nextPage()">Next</button>
   </div>
-  <div class="container">
-    <br><br>
-    <h1>Security Assistant Dashboard</h1>
-    <div class="response-chart">
-      <div class="response-option">
-        <input type="radio" id="like" name="satisfaction" value="like" (change)="handleResponse('like')">
-        <label for="like"><img src="assets/images/dashboard/like.png" alt="Like"></label>
-      </div>
-      <div class="response-option">
-        <input type="radio" id="dislike" name="satisfaction" value="dislike" (change)="handleResponse('dislike')">
-        <label for="dislike"><img src="assets/images/dashboard/dislike.png" alt="Dislike"></label>
-      </div>
-    </div>
-    <!-- Add more response options if needed -->
-    <div class="stats-container">
-      <div class="stats">
-        <strong>Likes:</strong>
-        <span id="likesCount">0</span>
-        <span id="likesPercentage">(0%)</span>
-      </div>
-      <div class="stats">
-        <strong>Dislikes:</strong>
-        <span id="dislikesCount">0</span>
-        <span id="dislikesPercentage">(0%)</span>
-      </div>
-    </div>
-    <div class="total-incidents-label">
-      <strong>Total Incidents:</strong>
-    </div>
-    <div class="total-incidents">
-      <span id="incidentsCount">0</span>
-    </div>
-    <div class="security-tasks">
-      <button type="button">Complete Tasks</button>
-    </div>
-  </div>
+ 
 </body>
 </html>
