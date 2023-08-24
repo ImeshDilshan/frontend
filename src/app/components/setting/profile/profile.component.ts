@@ -10,7 +10,7 @@ export class ProfileComponent implements OnInit {
   likesCount: number = 0;
   incidentsCount: number = 0;
   dislikesCount: number = 0;
-  graphId: string;
+  graphId: string="1"
   datas: any = [];
   currentPage: number = 1;
   recordsPerPage: number = 20;
