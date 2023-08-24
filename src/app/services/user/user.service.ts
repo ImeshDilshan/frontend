@@ -56,4 +56,94 @@ export class UserService {
     let url = ServiceConstant.backendUrl + `/?page=${page}&perPage=${perPage}`;
     return this.httpClient.get(url, options);
   }
+
+  getDatasvulnerabilities(page: number, perPage: number) {
+    const token = localStorage.getItem("accessToken");
+
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: token,
+    });
+
+    const options = {
+      headers: httpHeaders,
+    };
+
+    const url = `${ServiceConstant.backendUrl}/vulnerabilities?page=${page}&perPage=${perPage}`;
+
+    return this.httpClient.get(url, options).pipe(
+      catchError((error: any) => {
+        console.error("Error fetching vulnerabilities:", error);
+        throw error;
+      })
+    );
+  }
+
+  getVulnerabilityById(id: string) {
+    const token = localStorage.getItem("accessToken");
+
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: token,
+    });
+
+    const options = {
+      headers: httpHeaders,
+    };
+
+    const url = `${ServiceConstant.backendUrl}/vulnerabilities/${id}`;
+
+    return this.httpClient.get(url, options).pipe(
+      catchError((error: any) => {
+        console.error(`Error fetching vulnerability with ID ${id}:`, error);
+        throw error;
+      })
+    );
+  }
+
+  getPieChart(id: string) {
+    const token = localStorage.getItem("accessToken");
+
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: token,
+    });
+
+    const options = {
+      headers: httpHeaders,
+      responseType: "text" as "text", // Set the response type to text
+    };
+
+    const url = `${ServiceConstant.backendUrl}/pie-chart/${id}`;
+
+    return this.httpClient.get(url, options).pipe(
+      catchError((error: any) => {
+        console.error("Error fetching pie chart:", error);
+        throw error;
+      })
+    );
+  }
+
+  getVulnerabilitiesChart() {
+    const token = localStorage.getItem("accessToken");
+
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: token,
+    });
+
+    const options = {
+      headers: httpHeaders,
+      responseType: "blob" as "json", // Set the response type to blob
+    };
+
+    const url = `${ServiceConstant.backendUrl}/vulnerabilities-chart`;
+
+    return this.httpClient.get(url, options).pipe(
+      catchError((error: any) => {
+        console.error("Error fetching vulnerabilities chart:", error);
+        throw error;
+      })
+    );
+  }
 }
