@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Security Assistant Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 10px;
+      border-radius: 5px;
+      width: 45%;
+      display: flex;
+      flex-direction: column; /* Stack child elements vertically */
+      align-items: center; /* Center child elements horizontally */
+    }
+
+    #svgContainer {
+      /* Optional: Add width and height styles for the svgContainer if needed */
+      /* width: 100%; */
+      /* height: 200px; */
+      margin-top: 10px; /* Add some spacing above the svgContainer */
+    }
+
+    .response-chart img {
+      max-width: 100%;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .pagination button {
+      margin: 0 5px;
+    }
+
+    .no-data-message {
+  font-size: 20px; /* Adjust the font size as needed */
+  color: red;
+}
+
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <!-- New card -->
+   <div class="card" *ngIf="datas.length < 0">
+  <h2>Vulnerability Summary</h2>
+  <!-- Only display the following content if datas array is not empty -->
+  <div class="response-chart">
+    <img id="vulnerabilitiesChart" alt="Vulnerabilities Chart">
+  </div>
+</div>
+
+    <!-- Existing table card -->
+  <div style="display: flex;">
+    <div class="card">
+      <div>
+        <label for="graphId">Enter Graph ID:</label>
+        <input type="text" id="graphId" [(ngModel)]="graphId">
+        <button (click)="fetchGraph()">Fetch Graph</button>
+      </div>
+      <div id="svgContainer"></div>
+    </div>
+
+    <div class="card">
+      <h2>Vulnerability Summary</h2>
+      <p *ngIf="datas.length === 0" class="no-data-message">No Data Included</p>
+      <div class="response-chart">
+        <img id="vulnerabilitiesChart" alt="Vulnerabilities Chart">
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="card-container">
+    <div class="card" *ngIf="datas.length > 0">
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Protocol</th>
+              <th>Source</th>
+              <th>Destination</th>
+              <th>vulnerability_info</th>
+              <!-- Add more table headers as needed -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let booking of datas" (click)="displayGraph(booking.id)">
+              <td>{{ booking.id }}</td>
+              <td>{{ booking.protocol }}</td>
+              <td>{{ booking.source }}</td>
+              <td>{{ booking.destination }}</td>
+              <td>{{ booking.vulnerability_info }}</td>
+              <!-- Add more table data cells as needed -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+        <span>{{ currentPage }}</span>
+        <button (click)="nextPage()">Next</button>
+      </div>
+    </div>
+
+
+  </div>
+
+ 
+
+</body>
+</html>

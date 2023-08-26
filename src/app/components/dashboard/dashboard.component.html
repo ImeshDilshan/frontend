@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Security Assistant Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border: 2px solid #ccc;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+
+    .response-chart {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .response-option {
+      margin: 0 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .response-option:hover {
+      transform: scale(1.1);
+    }
+
+    .response-option input[type="radio"] {
+      display: none;
+    }
+
+    .response-option label {
+      display: block;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      background-color: #f9f9f9;
+      overflow: hidden;
+    }
+
+    .response-option label img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .response-option input[type="radio"]:checked + label {
+      border-color: #4CAF50;
+      box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    }
+
+    .stats-container {
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .stats strong {
+      display: block;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .total-incidents-label {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .total-incidents {
+      font-size: 20px;
+      color: #333;
+    }
+
+    .security-tasks {
+      margin-top: 40px;
+    }
+
+    .security-tasks label {
+      display: block;
+      margin-bottom: 10px;
+      text-align: left;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .security-tasks input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .security-tasks button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .security-tasks button:hover {
+      background-color: #45a049;
+    }
+
+    .table-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    .th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .th {
+      background-color: #f9f9f9;
+      font-weight: bold;
+    }
+
+    .tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .td {
+      color: #333;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .pagination button {
+      padding: 5px 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+
+    .pagination button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <label for="graphId">Enter Graph ID:</label>
+    <input type="text" id="graphId" [(ngModel)]="graphId">
+    <button (click)="fetchGraph()">Fetch Graph</button>
+    <div id="svgContainer"></div>
+  </div>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Protocol</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Length</th>
+          <!-- Add more table headers as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of datas">
+          <td>{{ booking.id }}</td>
+          <td>{{ booking.protocol }}</td>
+          <td>{{ booking.source }}</td>
+          <td>{{ booking.destination }}</td>
+          <td>{{ booking.length }}</td>
+          <!-- Add more table data cells as needed -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>{{ currentPage }}</span>
+    <button (click)="nextPage()">Next</button>
+  </div>
+ 
+</body>
+</html>
