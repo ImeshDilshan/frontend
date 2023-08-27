@@ -155,8 +155,34 @@ export class DashboardComponent implements OnInit {
       body: tableData,
     });
   
-    doc.save('security_incidents.pdf');
+    // Add a new page for the graph
+    doc.addPage();
+    const graphContainer = document.getElementById("svgContainer");
+    const svgString = graphContainer.innerHTML;
+  
+    // Parse the SVG and add it to the PDF
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(svgString, "image/svg+xml");
+    const svgElement = svgDoc.documentElement;
+    const svgData = new XMLSerializer().serializeToString(svgElement);
+  
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    const img = new Image();
+    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+    
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      context.drawImage(img, 0, 0);
+  
+      const graphImage = canvas.toDataURL("image/jpeg", 1.0);
+      doc.addImage(graphImage, "JPEG", 10, 10, 180, 100); // Adjust the position and size as needed
+  
+      doc.save('security_incidents.pdf');
+    };
   }
+  
   
   prepareTableData() {
     // Create an array of arrays for table data
