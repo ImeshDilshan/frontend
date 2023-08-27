@@ -152,9 +152,15 @@ export class DashboardComponent implements OnInit {
     const doc = new (jsPDF as any)(); // Use type assertion
     const tableData = this.prepareTableData();
   
+    // Add title to the first page
+    doc.setFontSize(18);
+    doc.text("SDN CONTROLLER - Event Flow Graph Report", 40, 10); // Adjust position as needed
+  
+    // Add the table
     doc.autoTable({
       head: [['ID', 'Protocol', 'Source', 'Destination', 'Length']],
       body: tableData,
+      startY: 30, // Adjust starting position for the table
     });
   
     // Add a new page for the graph
@@ -172,7 +178,7 @@ export class DashboardComponent implements OnInit {
     const context = canvas.getContext("2d");
     const img = new Image();
     img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
-    
+  
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
@@ -181,9 +187,10 @@ export class DashboardComponent implements OnInit {
       const graphImage = canvas.toDataURL("image/jpeg", 1.0);
       doc.addImage(graphImage, "JPEG", 10, 10, 180, 100); // Adjust the position and size as needed
   
-      doc.save('security_incidents.pdf');
+      doc.save('SDN_Controller_Event_Flow_Graph_Report.pdf');
     };
   }
+  
   
   
   prepareTableData() {
