@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/user/user.service";
 import { Router } from "@angular/router"; 
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
+
 
 @Component({
   selector: "app-dashboard",
@@ -140,4 +144,33 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
+
+  downloadPDF() {
+    const doc = new (jsPDF as any)(); // Use type assertion
+    const tableData = this.prepareTableData();
+  
+    doc.autoTable({
+      head: [['ID', 'Protocol', 'Source', 'Destination', 'Length']],
+      body: tableData,
+    });
+  
+    doc.save('security_incidents.pdf');
+  }
+  
+  prepareTableData() {
+    // Create an array of arrays for table data
+    const tableData = this.datas.map((booking: any) => [
+      booking.id,
+      booking.protocol,
+      booking.source,
+      booking.destination,
+      booking.length,
+    ]);
+    return tableData;
+  }
+
+
+
+
 }
