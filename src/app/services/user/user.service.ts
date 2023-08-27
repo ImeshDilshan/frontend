@@ -143,4 +143,16 @@ export class UserService {
       })
     );
   }
+
+  sendEmail(email: string, pdfDataUri: string) {
+    const url = `${ServiceConstant.backendUrl}/send-email`;
+    const requestBody = { email, pdfDataUri };
+
+    return this.httpClient.post(url, requestBody).pipe(
+      catchError((error: any) => {
+        console.error('Error sending email:', error);
+        throw error;
+      })
+    );
+  }
 }

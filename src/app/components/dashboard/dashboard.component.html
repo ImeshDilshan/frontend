@@ -220,5 +220,10 @@
     <button (click)="nextPage()">Next</button>
   </div>
   <button (click)="downloadPDF()">Download as PDF</button>
+  <div>
+    <label for="email">Enter Email Address:</label>
+    <input type="email" id="email" [(ngModel)]="emailAddress">
+    <button (click)="sendEmail()">Send Email with PDF</button>
+  </div>
 </body>
 </html>

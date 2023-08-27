@@ -6,6 +6,7 @@ import "jspdf-autotable";
 
 
 
+
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -19,6 +20,7 @@ export class DashboardComponent implements OnInit {
   datas: any = [];
   currentPage: number = 1;
   recordsPerPage: number = 20;
+  emailAddress: string = "";
 
   constructor(private userservice: UserService, private router: Router) {}
 
@@ -194,6 +196,48 @@ export class DashboardComponent implements OnInit {
       booking.length,
     ]);
     return tableData;
+  }
+
+  sendEmail() {
+    const graphContainer = document.getElementById('svgContainer');
+    const svgString = graphContainer.innerHTML;
+
+    const doc = new (jsPDF as any)(); // Use type assertion
+    const tableData = this.prepareTableData();
+
+    doc.autoTable({
+      head: [['ID', 'Protocol', 'Source', 'Destination', 'Length']],
+      body: tableData,
+    });
+
+    // Add a new page for the graph
+    doc.addPage();
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const img = new Image();
+    img.src =
+      'data:image/svg+xml;base64,' +
+      btoa(unescape(encodeURIComponent(svgString)));
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      context.drawImage(img, 0, 0);
+
+      const graphImage = canvas.toDataURL('image/jpeg', 1.0);
+      doc.addImage(graphImage, 'JPEG', 10, 10, 180, 100); // Adjust the position and size as needed
+
+      // Send the email with PDF attachment
+      this.userservice.sendEmail(this.emailAddress, doc.output('datauristring')).subscribe(
+        (response: any) => {
+          console.log('Email sent:', response.message);
+        },
+        (error: any) => {
+          console.error('Error sending email:', error);
+        }
+      );
+    };
   }
 
 
