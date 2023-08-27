@@ -181,6 +181,109 @@
     .pagination button:hover {
       background-color: #45a049;
     }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+
+    /* ... Other styles ... */
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    /* ... Other styles ... */
+
+    /* Enhance table styles */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    .th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .th {
+      background-color: #f9f9f9;
+      font-weight: bold;
+    }
+
+    .tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    /* Enhance pagination styles */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .pagination .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+
+    .pagination .btn:last-child {
+      margin-right: 0;
+    }
+
+    /* Enhance email form styles */
+    .email-form {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .email-form label {
+      margin-right: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .email-form input[type="email"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .email-form .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #4CAF50;
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
@@ -219,11 +322,11 @@
     <span>{{ currentPage }}</span>
     <button (click)="nextPage()">Next</button>
   </div>
-  <button (click)="downloadPDF()">Download as PDF</button>
-  <div>
+  <button class="btn" (click)="downloadPDF()">Download as PDF</button>
+  <div class="email-form">
     <label for="email">Enter Email Address:</label>
     <input type="email" id="email" [(ngModel)]="emailAddress">
-    <button (click)="sendEmail()">Send Email with PDF</button>
+    <button class="btn" (click)="sendEmail()">Send Email with PDF</button>
   </div>
 </body>
 </html>
