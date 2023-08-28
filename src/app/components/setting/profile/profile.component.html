@@ -26,6 +26,7 @@
       flex-direction: column; /* Stack child elements vertically */
       align-items: center; /* Center child elements horizontally */
     }
+    
 
     #svgContainer {
       /* Optional: Add width and height styles for the svgContainer if needed */
@@ -95,15 +96,96 @@
     .pagination button {
       margin: 0 5px;
     }
+    .pagination .btn:last-child {
+      margin-right: 0;
+    }
+
+    /* Enhance email form styles */
+    .email-form {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .email-form label {
+      margin-right: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .email-form input[type="email"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .email-form .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #4CAF50;
+      margin-left: 10px;
+    }
+
 
     .no-data-message {
   font-size: 20px; /* Adjust the font size as needed */
   color: red;
 }
 
+.color-code {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.color-row {
+  display: flex;
+  align-items: center;
+}
+
+.color-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.red {
+  background-color: red;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.ash {
+  background-color: #ccc;
+}
+
+.light-ash {
+  background-color: #eee;
+}
+
+.severity {
+  font-weight: bold;
+}
+
+.score-range {
+  margin-left: 10px;
+}
+
+
+
   </style>
 </head>
 <body>
+
+
+  
   <div class="card-container">
     <!-- New card -->
    <div class="card" *ngIf="datas.length < 0">
@@ -151,12 +233,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let booking of datas" (click)="displayGraph(booking.id)">
+            <tr *ngFor="let booking of datas" (click)="booking.vulnerability_info > 7 ? openModel() : null; displayGraph(booking.id)">
               <td>{{ booking.id }}</td>
               <td>{{ booking.protocol }}</td>
               <td>{{ booking.source }}</td>
               <td>{{ booking.destination }}</td>
-              <td>{{ booking.vulnerability_info }}</td>
+              <td >
+                {{ booking.vulnerability_info }}
+              </td>
               <!-- Add more table data cells as needed -->
             </tr>
           </tbody>
@@ -168,11 +252,115 @@
         <button (click)="nextPage()">Next</button>
       </div>
     </div>
-
-
+  
+    <div class="card">
+      <h2>Color Code</h2>
+      <div class="color-code">
+        <div class="color-row">
+          <div class="color-box red"></div>
+          <div class="color-info">
+            <span class="severity">Critical</span>
+            <span class="score-range">9.0-10.0</span>
+          </div>
+        </div>
+        <div class="color-row">
+          <div class="color-box orange"></div>
+          <div class="color-info">
+            <span class="severity">High</span>
+            <span class="score-range">7.0-8.9</span>
+          </div>
+        </div>
+        <div class="color-row">
+          <div class="color-box yellow"></div>
+          <div class="color-info">
+            <span class="severity">Medium</span>
+            <span class="score-range">4.0-6.9</span>
+          </div>
+        </div>
+        <div class="color-row">
+          <div class="color-box ash"></div>
+          <div class="color-info">
+            <span class="severity">Low</span>
+            <span class="score-range">0.1-3.9</span>
+          </div>
+        </div>
+        <div class="color-row">
+          <div class="color-box light-ash"></div>
+          <div class="color-info">
+            <span class="severity">Informational</span>
+            <span class="score-range">0.0-0.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+   
   </div>
 
- 
 
+
+
+  <div class="email-form">
+    <button class="btn" (click)="downloadPDF()">Download as PDF</button>
+    <label for="email">Enter Email Address:</label>
+    <input type="email" id="email" [(ngModel)]="emailAddress">
+    <button class="btn" (click)="sendEmail()">Send Email with PDF</button>
+  </div>
+  
+
+
+  
+
+
+
+  <!-- ... Remaining card-container and card elements ... -->
 </body>
+
+
+
+
 </html>
+
+<!-- profile.component.html -->
+<style>
+  .warning-icon {
+    max-width: 100px; /* Adjust the width as needed */
+    max-height: 100px; /* Adjust the height as needed */
+  }
+</style>
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header text-center bg-danger text-white">
+        <img src="../../../../assets/images/download.png" alt="Warning Icon" class="warning-icon mx-auto d-block">
+        <h4 class="modal-title text-center">Warning!</h4>
+        <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">
+          <h5>You have a high or critical vulnerability that requires immediate action.</h5>
+        </div>
+        <ul>
+          <li>A</li>
+          <li>B</li>
+          <li>C</li>
+        </ul>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+

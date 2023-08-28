@@ -29,7 +29,7 @@
     "@types/jspdf": "^2.0.0",
     "angular-count-to": "0.0.3",
     "angular-mydatepicker": "^0.11.5",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^5.0.1",
     "chart.js": "^2.9.3",
     "chartist": "^0.11.4",
     "express": "^4.15.2",
