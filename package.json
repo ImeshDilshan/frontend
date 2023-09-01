@@ -51,6 +51,7 @@
     "ngx-dropzone-wrapper": "^8.0.0",
     "ngx-owl-carousel-o": "^2.0.3",
     "ngx-slimscroll": "^8.1.0",
+    "ngx-spinner": "^16.0.2",
     "rxjs": "~6.6.0",
     "sass": "~1.26.11",
     "screenfull": "^5.0.1",
