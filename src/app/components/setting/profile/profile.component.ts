@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from "src/app/services/user/user.service";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: "app-profile",
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit {
   recordsPerPage: number = 20;
   showModal: boolean = false;
   emailAddress: string = "";
+  isLoading: boolean = false; 
   
   constructor(private userservice: UserService) {}
 
@@ -59,6 +61,7 @@ export class ProfileComponent implements OnInit {
   // }
 
   fetchPieChart(id: string) {
+    this.isLoading = true;
     this.userservice.getPieChart(this.graphId).subscribe(
       (svgString: string) => {
         // Parse the SVG string and display it in your component
@@ -70,15 +73,19 @@ export class ProfileComponent implements OnInit {
         const svgContainer = document.getElementById("svgContainer");
         svgContainer.innerHTML = ""; // Clear previous SVG
         svgContainer.appendChild(svgElement);
+        this.isLoading = false;
       },
       (error: any) => {
         console.error("Error fetching pie chart:", error);
+        this.isLoading = false;
       }
     );
   }
 
   fetchGraph() {
+    this.isLoading = true;
     this.fetchPieChart(this.graphId);
+    this.isLoading = false;
   }
 
   displayGraph(id: string) {
@@ -87,6 +94,7 @@ export class ProfileComponent implements OnInit {
   }3
 
   fetchVulnerabilitiesChart() {
+    this.isLoading = true;
     this.userservice.getVulnerabilitiesChart().subscribe(
       (chartBlob: Blob) => {
         // Create a URL for the blob
@@ -100,6 +108,7 @@ export class ProfileComponent implements OnInit {
       },
       (error: any) => {
         console.error("Error fetching vulnerabilities chart:", error);
+        this.isLoading = false;
       }
     );
   }
@@ -122,14 +131,17 @@ export class ProfileComponent implements OnInit {
   }
 
   getData() {
+    this.isLoading = true;
     this.userservice.getDatasvulnerabilities(this.currentPage, this.recordsPerPage).subscribe(
       (res: any) => {
         this.datas = res;
         console.log("hi", this.datas);
         this.showModal = this.datas.some((booking: any) => booking.vulnerability_info > 7);
+        this.isLoading = false;
       },
       (error: any) => {
         console.error("Error fetching data:", error);
+        this.isLoading = false;
       }
     );
   }
@@ -147,6 +159,7 @@ export class ProfileComponent implements OnInit {
   }
 
   downloadPDF() {
+    this.isLoading = true;
     const doc = new (jsPDF as any)(); // Use type assertion
     const tableData = this.prepareTableData();
   
@@ -193,10 +206,12 @@ export class ProfileComponent implements OnInit {
             doc.addPage();
             doc.addImage(vulnerabilitiesChart, "JPEG", 10, 10, 180, 100); // Adjust the position and size as needed
             doc.save('SDN_Controller_Identifying_report.pdf');
+            this.isLoading = false;
           };
         },
         (error: any) => {
           console.error("Error fetching vulnerabilities chart:", error);
+          this.isLoading = false;
         }
       );
     };
@@ -204,6 +219,7 @@ export class ProfileComponent implements OnInit {
 
 
   sendEmail() {
+    this.isLoading = true;
     const graphContainer = document.getElementById('svgContainer');
     const svgString = graphContainer.innerHTML;
 
@@ -237,9 +253,11 @@ export class ProfileComponent implements OnInit {
       this.userservice.sendEmail(this.emailAddress, doc.output('datauristring')).subscribe(
         (response: any) => {
           console.log('Email sent:', response.message);
+          this.isLoading = false;
         },
         (error: any) => {
           console.error('Error sending email:', error);
+          this.isLoading = false;
         }
       );
     };

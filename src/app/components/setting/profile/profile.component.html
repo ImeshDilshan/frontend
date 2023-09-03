@@ -185,7 +185,9 @@
 <body>
 
 
-  
+  <!-- Add this code where you want to display the spinner -->
+
+
   <div class="card-container">
     <!-- New card -->
    <div class="card" *ngIf="datas.length < 0">
@@ -294,8 +296,8 @@
       </div>
     </div>
    
-   
   </div>
+  
 
 
 
@@ -360,6 +362,8 @@
     </div>
   </div>
 </div>
+<div class="spinner" *ngIf="isLoading"></div>
+
 
 
 
