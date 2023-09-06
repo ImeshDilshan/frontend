@@ -3,6 +3,7 @@ import { UserService } from "src/app/services/user/user.service";
 import { Router } from "@angular/router"; 
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { NgIf } from "@angular/common";
 
 
 
@@ -21,7 +22,7 @@ export class DashboardComponent implements OnInit {
   currentPage: number = 1;
   recordsPerPage: number = 20;
   emailAddress: string = "";
-
+  isLoading: boolean = false; 
   constructor(private userservice: UserService, private router: Router) {}
 
   ngOnInit() {
@@ -78,6 +79,7 @@ export class DashboardComponent implements OnInit {
   }
 
   fetchGraph() {
+    this.isLoading = true;
     this.userservice.getGraph(this.graphId).subscribe(
       (svgString: string) => {
         // The SVG content has been fetched and displayed
@@ -91,6 +93,7 @@ export class DashboardComponent implements OnInit {
           "http://localhost:5000/api/bookings/graph/",
           this.graphId,
         ]);
+        this.isLoading = false;
       },
       (error: any) => {
         // Handle error
@@ -99,6 +102,7 @@ export class DashboardComponent implements OnInit {
           this.graphId,
         ]);
         console.error("Error fetching SVG content:", error);
+        this.isLoading = false;
         // You might want to update your component's state to reflect the error
       }
     );
@@ -136,19 +140,23 @@ export class DashboardComponent implements OnInit {
   }
 
   getData() {
+    this.isLoading = true;
     this.userservice.getDatas(this.currentPage, this.recordsPerPage).subscribe(
       (res: any) => {
         this.datas = res;
         console.log("hi", this.datas);
+        this.isLoading = false;
       },
       (error: any) => {
         console.error("Error fetching data:", error);
+        this.isLoading = false;
       }
     );
   }
 
 
   downloadPDF() {
+    this.isLoading = true;
     const doc = new (jsPDF as any)(); // Use type assertion
     const tableData = this.prepareTableData();
   
@@ -188,6 +196,7 @@ export class DashboardComponent implements OnInit {
       doc.addImage(graphImage, "JPEG", 10, 10, 180, 100); // Adjust the position and size as needed
   
       doc.save('SDN_Controller_Event_Flow_Graph_Report.pdf');
+      this.isLoading = false;
     };
   }
   
@@ -206,6 +215,7 @@ export class DashboardComponent implements OnInit {
   }
 
   sendEmail() {
+    this.isLoading = true;
     const graphContainer = document.getElementById('svgContainer');
     const svgString = graphContainer.innerHTML;
 
@@ -239,9 +249,11 @@ export class DashboardComponent implements OnInit {
       this.userservice.sendEmail(this.emailAddress, doc.output('datauristring')).subscribe(
         (response: any) => {
           console.log('Email sent:', response.message);
+          this.isLoading = false;
         },
         (error: any) => {
           console.error('Error sending email:', error);
+          this.isLoading = false;
         }
       );
     };
