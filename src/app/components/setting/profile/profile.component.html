@@ -21,7 +21,7 @@
       padding: 20px;
       margin: 10px;
       border-radius: 5px;
-      width: 45%;
+      width: 100%;
       display: flex;
       flex-direction: column; /* Stack child elements vertically */
       align-items: center; /* Center child elements horizontally */
@@ -185,7 +185,9 @@
 <body>
 
 
-  
+  <!-- Add this code where you want to display the spinner -->
+
+
   <div class="card-container">
     <!-- New card -->
    <div class="card" *ngIf="datas.length < 0">
@@ -216,6 +218,46 @@
     </div>
   </div>
 
+  </div>
+  <div class="card">
+    <h2>Color Code</h2>
+    <div class="color-code">
+      <div class="color-row">
+        <div class="color-box red"></div>
+        <div class="color-info">
+          <span class="severity">Critical</span>
+          <span class="score-range">9.0-10.0</span>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-box orange"></div>
+        <div class="color-info">
+          <span class="severity">High</span>
+          <span class="score-range">7.0-8.9</span>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-box yellow"></div>
+        <div class="color-info">
+          <span class="severity">Medium</span>
+          <span class="score-range">4.0-6.9</span>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-box ash"></div>
+        <div class="color-info">
+          <span class="severity">Low</span>
+          <span class="score-range">0.1-3.9</span>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-box light-ash"></div>
+        <div class="color-info">
+          <span class="severity">Informational</span>
+          <span class="score-range">0.0-0.0</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="card-container">
@@ -253,49 +295,10 @@
       </div>
     </div>
   
-    <div class="card">
-      <h2>Color Code</h2>
-      <div class="color-code">
-        <div class="color-row">
-          <div class="color-box red"></div>
-          <div class="color-info">
-            <span class="severity">Critical</span>
-            <span class="score-range">9.0-10.0</span>
-          </div>
-        </div>
-        <div class="color-row">
-          <div class="color-box orange"></div>
-          <div class="color-info">
-            <span class="severity">High</span>
-            <span class="score-range">7.0-8.9</span>
-          </div>
-        </div>
-        <div class="color-row">
-          <div class="color-box yellow"></div>
-          <div class="color-info">
-            <span class="severity">Medium</span>
-            <span class="score-range">4.0-6.9</span>
-          </div>
-        </div>
-        <div class="color-row">
-          <div class="color-box ash"></div>
-          <div class="color-info">
-            <span class="severity">Low</span>
-            <span class="score-range">0.1-3.9</span>
-          </div>
-        </div>
-        <div class="color-row">
-          <div class="color-box light-ash"></div>
-          <div class="color-info">
-            <span class="severity">Informational</span>
-            <span class="score-range">0.0-0.0</span>
-          </div>
-        </div>
-      </div>
-    </div>
-   
+
    
   </div>
+  
 
 
 
@@ -346,9 +349,9 @@
           <h5>You have a high or critical vulnerability that requires immediate action.</h5>
         </div>
         <ul>
-          <li>A</li>
-          <li>B</li>
-          <li>C</li>
+          <li>1. Apply strict input validation and sanitization to user inputs.</li>
+          <li>2. Implement rate limiting for incoming requests. </li>
+          <li>3. Use cryptographic signatures and certificates</li>
         </ul>
       </div>
 
@@ -360,6 +363,8 @@
     </div>
   </div>
 </div>
+<div class="spinner" *ngIf="isLoading"></div>
+
 
 
 
